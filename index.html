@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dra. Larissa Roberta - Clínica Odontológica</title>
+    <meta name="description" content="Odontologia com acolhimento e confiança. Atendimento clínico e cuidado individualizado em Santos - SP.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Cormorant Garamond & Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome para Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        cormorant: ['"Cormorant Garamond"', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            creme: '#F5F1EA',
+                            vinho: '#6E2637',
+                            marinho: '#1E3044',
+                            bege: '#D8C8B5',
+                            marrom: '#493A32',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Animação para o botão do WhatsApp flutuante */
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        .whatsapp-float {
+            animation: pulse-green 2s infinite;
+            transition: opacity 300ms ease, transform 300ms ease;
+        }
+
+        .whatsapp-float.is-hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            animation-play-state: paused;
+        }
+        
+        /* Ajuste de sombra suave para os cards */
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+        }
+
+        .hero-slide {
+            opacity: 0;
+            transition: opacity 1.6s ease-in-out;
+        }
+
+        .hero-slide.is-active {
+            opacity: 1;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-slide {
+                transition: none;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans text-brand-marrom antialiased bg-brand-creme flex flex-col min-h-screen">
+
+    <!-- Header / Navbar -->
+    <header class="bg-brand-creme/90 backdrop-blur-md sticky top-0 z-40 border-b border-brand-bege shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer py-2" onclick="window.scrollTo(0,0)">
+                    <img src="logo.png" alt="Dra Larissa Roberta" class="max-h-20 w-auto object-contain">
+                </div>
+                
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#apresentacao" class="text-brand-marinho hover:text-brand-vinho font-medium transition">Apresentação</a>
+                    <a href="#especialidades" class="text-brand-marinho hover:text-brand-vinho font-medium transition">Especialidades</a>
+                    <a href="#localizacao" class="text-brand-marinho hover:text-brand-vinho font-medium transition">Localização</a>
+                    <a href="#contatos" class="text-brand-marinho hover:text-brand-vinho font-medium transition">Contatos</a>
+                </nav>
+                
+                <!-- CTA Button -->
+                <div class="hidden md:flex">
+                    <a href="https://wa.me/55013991206829" target="_blank" class="bg-brand-vinho hover:bg-brand-marinho text-brand-creme px-6 py-2.5 rounded-full font-medium transition shadow-md flex items-center">
+                        <i class="fa-regular fa-calendar-check mr-2"></i> Agendar
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-brand-marinho hover:text-brand-vinho focus:outline-none p-2">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-creme border-t border-brand-bege px-4 py-4 space-y-3 shadow-lg absolute w-full left-0">
+            <a href="#apresentacao" class="block text-brand-marinho font-medium hover:text-brand-vinho py-2">Apresentação</a>
+            <a href="#especialidades" class="block text-brand-marinho font-medium hover:text-brand-vinho py-2">Especialidades</a>
+            <a href="#localizacao" class="block text-brand-marinho font-medium hover:text-brand-vinho py-2">Localização</a>
+            <a href="#contatos" class="block text-brand-marinho font-medium hover:text-brand-vinho py-2">Contatos</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        
+        <!-- Seção 1: Apresentação -->
+        <section id="apresentacao" class="relative overflow-hidden bg-brand-creme py-12 md:py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-2 items-center gap-10 lg:gap-16">
+                    <figure class="order-1 w-full max-w-2xl mx-auto lg:order-2 lg:max-w-none">
+                        <div class="relative isolate aspect-square overflow-hidden rounded-lg border border-brand-bege/70 bg-[#EEE7DE] shadow-lg">
+                            <div class="absolute inset-0 opacity-60" style="background-image: repeating-linear-gradient(135deg, transparent 0, transparent 28px, rgba(110, 38, 55, 0.05) 28px, rgba(110, 38, 55, 0.05) 29px);" aria-hidden="true"></div>
+                            <div class="absolute inset-0 flex items-center justify-center text-brand-vinho/40" aria-hidden="true">
+                                <i class="fa-solid fa-tooth text-6xl"></i>
+                            </div>
+                            <img src="slide/1.jpg" alt="Foto 1 da clínica odontológica" class="hero-slide absolute inset-0 h-full w-full object-cover object-top" data-slide="1">
+                            <img src="slide/2.jpg" alt="Foto 2 da clínica odontológica" class="hero-slide absolute inset-0 h-full w-full object-cover object-[center_35%]" data-slide="2">
+                            <img src="slide/3.jpg" alt="Foto 3 da clínica odontológica" class="hero-slide absolute inset-0 h-full w-full object-cover" data-slide="3">
+                            <img src="slide/4.jpg" alt="Foto 4 da clínica odontológica" class="hero-slide absolute inset-0 h-full w-full object-cover object-[center_65%]" data-slide="4">
+                        </div>
+                        <div class="flex justify-center gap-3 pt-5" aria-label="Selecionar foto">
+                            <button type="button" class="slide-indicator h-2.5 w-2.5 rounded-full bg-brand-bege transition-colors hover:bg-brand-vinho focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-vinho" data-slide-to="1" aria-label="Mostrar foto 1" hidden></button>
+                            <button type="button" class="slide-indicator h-2.5 w-2.5 rounded-full bg-brand-bege transition-colors hover:bg-brand-vinho focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-vinho" data-slide-to="2" aria-label="Mostrar foto 2" hidden></button>
+                            <button type="button" class="slide-indicator h-2.5 w-2.5 rounded-full bg-brand-bege transition-colors hover:bg-brand-vinho focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-vinho" data-slide-to="3" aria-label="Mostrar foto 3" hidden></button>
+                            <button type="button" class="slide-indicator h-2.5 w-2.5 rounded-full bg-brand-bege transition-colors hover:bg-brand-vinho focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-vinho" data-slide-to="4" aria-label="Mostrar foto 4" hidden></button>
+                        </div>
+                    </figure>
+
+                    <div class="order-2 text-center lg:order-1 lg:text-left">
+                        <h1 class="font-cormorant text-4xl md:text-5xl lg:text-6xl font-bold text-brand-vinho leading-tight mb-6">
+                            Odontologia com <span class="italic">acolhimento</span><br class="hidden md:block"/> e confiança 💙
+                        </h1>
+                        <p class="mt-4 text-xl md:text-2xl text-brand-marinho font-light mb-10 max-w-2xl mx-auto lg:mx-0">
+                            Atendimento clínico e cuidado individualizado
+                        </p>
+                        <div class="hero-actions flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-4 sm:gap-6">
+                            <a href="https://wa.me/55013991206829" target="_blank" class="w-full sm:w-auto bg-brand-vinho hover:bg-[#521b28] text-brand-creme px-8 py-4 rounded-full text-lg font-medium transition shadow-lg flex items-center justify-center">
+                                Fale com a Doutora <i class="fa-brands fa-whatsapp ml-3 text-xl"></i>
+                            </a>
+                            <a href="#especialidades" class="w-full sm:w-auto bg-transparent hover:bg-brand-bege/30 text-brand-marinho px-8 py-4 rounded-full text-lg font-medium transition border border-brand-bege">
+                                Conheça os Tratamentos
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 2: Especialidades -->
+        <section id="especialidades" class="py-24 bg-[#FAF8F5]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="font-cormorant text-3xl md:text-4xl font-bold text-brand-vinho mb-4">Nossas Especialidades</h2>
+                    <div class="w-24 h-1 bg-brand-bege mx-auto mb-6"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Card 1: Cirurgia -->
+                    <div class="bg-white rounded-lg p-8 border border-brand-bege card-shadow hover:-translate-y-1 transition-transform duration-300 group">
+                        <div class="w-12 h-12 mb-6 flex items-center justify-center">
+                            <i class="fa-solid fa-syringe text-3xl text-brand-bege group-hover:text-brand-vinho transition-colors duration-300"></i>
+                        </div>
+                        <h3 class="font-cormorant text-2xl font-bold text-brand-vinho mb-3">Cirurgia</h3>
+                        <p class="text-brand-marinho font-light">Procedimentos cirúrgicos realizados com a máxima segurança, tecnologia e conforto para o paciente.</p>
+                    </div>
+
+                    <!-- Card 2: Limpeza -->
+                    <div class="bg-white rounded-lg p-8 border border-brand-bege card-shadow hover:-translate-y-1 transition-transform duration-300 group">
+                        <div class="w-12 h-12 mb-6 flex items-center justify-center">
+                            <i class="fa-solid fa-hand-sparkles text-3xl text-brand-bege group-hover:text-brand-vinho transition-colors duration-300"></i>
+                        </div>
+                        <h3 class="font-cormorant text-2xl font-bold text-brand-vinho mb-3">Limpeza</h3>
+                        <p class="text-brand-marinho font-light">Profilaxia completa para remover placa e tártaro, prevenindo doenças e mantendo o hálito fresco.</p>
+                    </div>
+
+                    <!-- Card 3: Extração -->
+                    <div class="bg-white rounded-lg p-8 border border-brand-bege card-shadow hover:-translate-y-1 transition-transform duration-300 group">
+                        <div class="w-12 h-12 mb-6 flex items-center justify-center">
+                            <i class="fa-solid fa-tooth text-3xl text-brand-bege group-hover:text-brand-vinho transition-colors duration-300"></i>
+                        </div>
+                        <h3 class="font-cormorant text-2xl font-bold text-brand-vinho mb-3">Extração</h3>
+                        <p class="text-brand-marinho font-light">Remoção de dentes do siso ou danificados de forma indolor, focando na recuperação rápida e tranquila.</p>
+                    </div>
+
+                    <!-- Card 4: Lentes -->
+                    <div class="bg-white rounded-lg p-8 border border-brand-bege card-shadow hover:-translate-y-1 transition-transform duration-300 group">
+                        <div class="w-12 h-12 mb-6 flex items-center justify-center">
+                            <i class="fa-solid fa-face-smile-beam text-3xl text-brand-bege group-hover:text-brand-vinho transition-colors duration-300"></i>
+                        </div>
+                        <h3 class="font-cormorant text-2xl font-bold text-brand-vinho mb-3">Lentes</h3>
+                        <p class="text-brand-marinho font-light">Transforme seu sorriso com lentes de resina ou porcelana, garantindo estética natural e harmoniosa.</p>
+                    </div>
+
+                    <!-- Card 5: Planejamento -->
+                    <div class="bg-white rounded-lg p-8 border border-brand-bege card-shadow hover:-translate-y-1 transition-transform duration-300 group">
+                        <div class="w-12 h-12 mb-6 flex items-center justify-center">
+                            <i class="fa-solid fa-list-check text-3xl text-brand-bege group-hover:text-brand-vinho transition-colors duration-300"></i>
+                        </div>
+                        <h3 class="font-cormorant text-2xl font-bold text-brand-vinho mb-3">Planejamento</h3>
+                        <p class="text-brand-marinho font-light">Estudo completo e individualizado do seu caso para garantir que os resultados superem expectativas.</p>
+                    </div>
+
+                    <!-- Card 6: Rotina -->
+                    <div class="bg-white rounded-lg p-8 border border-brand-bege card-shadow hover:-translate-y-1 transition-transform duration-300 group">
+                        <div class="w-12 h-12 mb-6 flex items-center justify-center">
+                            <i class="fa-solid fa-calendar-check text-3xl text-brand-bege group-hover:text-brand-vinho transition-colors duration-300"></i>
+                        </div>
+                        <h3 class="font-cormorant text-2xl font-bold text-brand-vinho mb-3">Rotina</h3>
+                        <p class="text-brand-marinho font-light">Consultas periódicas de acompanhamento, essenciais para manter a saúde bucal em dia por toda a vida.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 3: Localização -->
+        <section id="localizacao" class="py-24 bg-brand-creme">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="font-cormorant text-3xl md:text-4xl font-bold text-brand-vinho mb-4">Onde Estamos</h2>
+                    <div class="w-24 h-1 bg-brand-bege mx-auto mb-6"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center bg-white p-8 md:p-12 rounded-lg border border-brand-bege card-shadow">
+                    
+                    <!-- Esquerda: Texto e Endereço -->
+                    <div class="flex flex-col space-y-8">
+                        
+                        <div class="flex items-start">
+                            <div class="text-brand-vinho mt-1 mr-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-cormorant text-2xl font-bold text-brand-vinho mb-2">Clínica Gonzaga</h4>
+                                <p class="text-brand-marinho font-medium leading-relaxed text-lg">
+                                    Av. Anna Costa, 493 - Conjunto 96<br>
+                                    Gonzaga, Santos - SP, 11060-003
+                                </p>
+                                <a href="https://maps.app.goo.gl/ZqQ83qkfhK4Dc9dN6" target="_blank" class="inline-block mt-6 text-brand-vinho hover:text-[#521b28] font-semibold hover:underline">
+                                    Traçar rota <i class="fa-solid fa-arrow-right-long ml-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Direita: Iframe do Maps -->
+                    <div class="h-[400px] w-full rounded-lg overflow-hidden border-4 border-brand-creme bg-gray-200 relative z-10 shadow-sm">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.818320343149!2d0!3d0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce03ace914ae5f%3A0x6b58828b2594b53e!2sDra%20Larissa%20Roberta!5e0!3m2!1spt-BR!2sbr!4v1793663831067!5m2!1spt-BR!2sbr" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            title="Mapa do endereço da Dra Larissa Roberta">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Pedido de avaliação no Google -->
+    <section class="border-t border-brand-bege/60 bg-[#FAF8F5] px-4 py-14 text-center sm:px-6 md:py-16" aria-labelledby="avaliacao-titulo">
+        <div class="mx-auto max-w-3xl">
+            <div class="mb-4 flex justify-center gap-1 text-[#D69B28]" aria-label="5 estrelas">
+                <i class="fa-solid fa-star" aria-hidden="true"></i>
+                <i class="fa-solid fa-star" aria-hidden="true"></i>
+                <i class="fa-solid fa-star" aria-hidden="true"></i>
+                <i class="fa-solid fa-star" aria-hidden="true"></i>
+                <i class="fa-solid fa-star" aria-hidden="true"></i>
+            </div>
+            <h2 id="avaliacao-titulo" class="mb-3 font-cormorant text-3xl font-bold text-brand-vinho md:text-4xl">Sua avaliação faz a diferença</h2>
+            <p class="mx-auto mb-7 max-w-2xl text-base leading-relaxed text-brand-marinho md:text-lg">
+                Oiiii, você poderia deixar uma avaliação no Google? Isso me ajuda muito e leva só um minutinho. Obrigado pelo apoio! 💛
+            </p>
+            <a href="https://g.page/r/CT61lCWLglhrEAI/review" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 rounded-full bg-brand-vinho px-7 py-3.5 font-medium text-brand-creme shadow-md transition hover:bg-brand-marinho focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-vinho">
+                <i class="fa-brands fa-google" aria-hidden="true"></i>
+                Avaliar no Google
+            </a>
+        </div>
+    </section>
+
+    <!-- Seção 4: Contatos e Footer -->
+    <footer id="contatos" class="bg-brand-vinho text-brand-creme pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 mb-12 border-b border-brand-bege/30 pb-12">
+                
+                <!-- Logo & Descrição -->
+                <div class="flex flex-col items-start">
+                    <img src="logo_principal_dra_larissa_roberta_sem_fundo.jpg" alt="Dra Larissa Roberta Logo" class="max-h-24 w-auto mb-6 rounded-md brightness-110 mix-blend-screen" onerror="this.style.display='none'">
+                    <!-- Fallback if img doesn't blend well on dark -->
+                    <p class="text-brand-bege leading-relaxed font-light mt-2">
+                        Cuidar do seu sorriso é cuidar de você. Atendimento humanizado, baseado em confiança, escuta e excelência técnica.
+                    </p>
+                </div>
+                
+                <!-- Links Rápidos -->
+                <div>
+                    <h4 class="font-cormorant text-2xl font-bold mb-6 text-brand-creme">Navegação</h4>
+                    <ul class="space-y-3 font-light">
+                        <li><a href="#apresentacao" class="text-brand-bege hover:text-white transition">Apresentação</a></li>
+                        <li><a href="#especialidades" class="text-brand-bege hover:text-white transition">Especialidades</a></li>
+                        <li><a href="#localizacao" class="text-brand-bege hover:text-white transition">Localização</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contato -->
+                <div>
+                    <h4 class="font-cormorant text-2xl font-bold mb-6 text-brand-creme">Fale Conosco</h4>
+                    <div class="flex flex-col space-y-5">
+                        <a href="https://wa.me/55013991206829" target="_blank" class="flex items-center group">
+                            <div class="w-10 h-10 rounded-full border border-brand-bege flex items-center justify-center group-hover:bg-[#25D366] group-hover:border-[#25D366] transition-colors duration-300">
+                                <i class="fa-brands fa-whatsapp text-lg"></i>
+                            </div>
+                            <span class="ml-3 text-brand-bege group-hover:text-white transition font-light">(13) 99120-6829</span>
+                        </a>
+                        <a href="https://www.instagram.com/larissaroberta/" target="_blank" class="flex items-center group">
+                            <div class="w-10 h-10 rounded-full border border-brand-bege flex items-center justify-center group-hover:bg-gradient-to-tr group-hover:from-yellow-400 group-hover:via-red-500 group-hover:to-purple-500 group-hover:border-transparent transition-all duration-300">
+                                <i class="fa-brands fa-instagram text-lg"></i>
+                            </div>
+                            <span class="ml-3 text-brand-bege group-hover:text-white transition font-light">@larissaroberta</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center text-brand-bege/70 text-sm font-light">
+                <p>&copy; <span id="year"></span> Dra. Larissa Roberta. Todos os direitos reservados.</p>
+                <p class="mt-2">larissaroberta.com.br</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botão Flutuante do WhatsApp -->
+    <a href="https://wa.me/55013991206829" 
+       target="_blank" 
+       class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-lg hover:scale-110 transition-transform duration-300 whatsapp-float"
+       aria-label="Fale conosco pelo WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script>
+        // Update Ano do Copyright
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Menu Mobile Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Fechar menu mobile ao clicar em um link
+        const mobileLinks = menu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Slideshow da apresentação
+        const heroSlides = Array.from(document.querySelectorAll('.hero-slide'));
+        const slideIndicators = Array.from(document.querySelectorAll('.slide-indicator'));
+
+        Promise.all(heroSlides.map(slide => slide.decode().then(() => slide).catch(() => null)))
+            .then(loadedSlides => {
+                const availableSlides = loadedSlides.filter(Boolean);
+                if (availableSlides.length === 0) return;
+
+                let activeIndex = 0;
+                const showSlide = index => {
+                    availableSlides[activeIndex].classList.remove('is-active');
+                    slideIndicators[Number(availableSlides[activeIndex].dataset.slide) - 1].classList.remove('bg-brand-vinho', 'scale-125');
+                    activeIndex = index;
+                    availableSlides[activeIndex].classList.add('is-active');
+                    slideIndicators[Number(availableSlides[activeIndex].dataset.slide) - 1].classList.add('bg-brand-vinho', 'scale-125');
+                };
+
+                availableSlides.forEach(slide => {
+                    const indicator = slideIndicators[Number(slide.dataset.slide) - 1];
+                    indicator.hidden = false;
+                    indicator.addEventListener('click', () => {
+                        const nextIndex = availableSlides.indexOf(slide);
+                        if (nextIndex !== activeIndex) showSlide(nextIndex);
+                    });
+                });
+                slideIndicators.forEach(indicator => {
+                    if (!availableSlides.some(slide => Number(slide.dataset.slide) === Number(indicator.dataset.slideTo))) {
+                        indicator.hidden = true;
+                    }
+                });
+
+                availableSlides[0].classList.add('is-active');
+                slideIndicators[Number(availableSlides[0].dataset.slide) - 1].classList.add('bg-brand-vinho', 'scale-125');
+                if (availableSlides.length > 1) {
+                    setInterval(() => showSlide((activeIndex + 1) % availableSlides.length), 8000);
+                }
+            });
+
+        const floatingWhatsapp = document.querySelector('.whatsapp-float');
+        const heroActions = document.querySelector('.hero-actions');
+        new IntersectionObserver(([entry]) => {
+            floatingWhatsapp.classList.toggle('is-hidden', entry.isIntersecting && window.matchMedia('(max-width: 767px)').matches);
+        }).observe(heroActions);
+    </script>
+</body>
+</html>
